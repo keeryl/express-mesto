@@ -5,13 +5,13 @@ const {
   deleteCardById,
   addLike,
   removeLike
-} = require('../controllers/users.js');
+} = require('../controllers/cards.js');
 
-usersRouter.get('/cards', getCards)
-usersRouter.post('/cards', createCard)
-usersRouter.post('/cards/:cardId', deleteCardById)
-usersRouter.put('/cards/:cardId/likes', addLike)
-usersRouter.delete('/cards/:cardId/likes', removeLike)
+cardsRouter.get('/cards', getCards)
+cardsRouter.post('/cards', createCard)
+cardsRouter.delete('/cards/:cardId', deleteCardById)
+// cardsRouter.put('/cards/:cardId/likes', addLike)
+// cardsRouter.delete('/cards/:cardId/likes', removeLike)
 
 module.exports = cardsRouter;
 
