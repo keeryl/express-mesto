@@ -21,10 +21,24 @@ module.exports.createUser = (req, res) => {
     .catch(err => console.log(err));
 }
 
-// module.exports.updateUserProfile = (req, res) => {
+module.exports.updateUserProfile = (req, res) => {
+  const { name, about } = req.body;
+  User.findByIdAndUpdate(
+    req.user._id,
+    { name , about },
+    { new: true },
+  )
+    .then(user => res.send({ user }))
+    .catch(err => console.log(err));
+}
 
-// }
-
-// module.exports.updateUserAvatar = (req, res) => {
-
-// }
+module.exports.updateUserAvatar = (req, res) => {
+  const { avatar } = req.body;
+  User.findByIdAndUpdate(
+    req.user._id,
+    { avatar },
+    { new: true },
+  )
+    .then(user => res.send({ user }))
+    .catch(err => console.log(err));
+}

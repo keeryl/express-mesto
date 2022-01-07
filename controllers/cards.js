@@ -18,13 +18,25 @@ module.exports.deleteCardById = (req, res) => {
   console.log(req.params.cardId);
   Card.findByIdAndRemove(req.params.cardId)
     .then(card => res.send({ card }))
+    .catch(err => res.send(err));
+}
+
+module.exports.addLike = (req, res) => {
+  Card.findByIdAndUpdate(
+    req.params.cardId,
+    { $addToSet: { likes: req.user._id } },
+    { new: true },
+  )
+    .then(card => res.send(card))
     .catch(err => console.log(err));
 }
 
-// module.exports.addLike = (req, res) => {
-
-// }
-
-// module.exports.removeLike = (req, res) => {
-
-// }
+module.exports.removeLike = (req, res) => {
+  Card.findByIdAndUpdate(
+    req.params.cardId,
+    { $pull: { likes: req.user._id } },
+    { new: true },
+  )
+    .then(card => res.send(card))
+    .catch(err => console.log(err));
+}
