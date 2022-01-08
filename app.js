@@ -1,10 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const { PORT = 3000 } = process.env;
 const cardsRouter = require('./routes/cards');
-const usersRouter = require('./routes/users')
+const usersRouter = require('./routes/users');
+
 const app = express();
+const { PORT = 3000 } = process.env;
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
@@ -14,14 +15,15 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 app.use((req, res, next) => {
   req.user = {
-    _id: '61d86492985c4b21b16751a5'
+    _id: '61d86492985c4b21b16751a5',
   };
   next();
 });
 app.use(bodyParser.json());
-app.use('/', cardsRouter);
-app.use('/', usersRouter);
-
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`)
+app.use('/cards', cardsRouter);
+app.use('/users', usersRouter);
+app.use((req, res) => {
+  res.status(404).send({ message: 'Запрошенный роут не существует' });
 });
+
+app.listen(PORT);

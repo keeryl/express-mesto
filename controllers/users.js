@@ -1,123 +1,114 @@
-const User = require('../models/user.js');
-const ERRROR_400 = 400;
-const ERROR_404 = 404;
-const ERROR_500 = 500;
+const User = require('../models/user');
+const {
+  ERROR_400,
+  ERROR_404,
+  ERROR_500,
+} = require('../utils/constants');
 
 module.exports.getUsers = (req, res) => {
-  console.log(req.body);
   User.find({})
-    .then(users => res.send({ ...users }))
-    .catch(err => {
-      console.log(`ПРОИЗОШЛА ОШИБКА: ${err.name}`);
-      if (err.name === 'InternalServerError') {
-        res.status(ERROR_500).send({
-          message: 'На сервере произошла ошибка.'
-        });
-        return;
-      }
-    });
-}
+    .then((users) => res.send({ ...users }))
+    .catch(() => res.status(ERROR_500).send({ message: 'На сервере произошла ошибка.' }));
+};
 
 module.exports.getUserById = (req, res) => {
-  User.findById(req.params._id)
-    .then(user => res.send({ user }))
-    .catch(err => {
-      console.log(`ПРОИЗОШЛА ОШИБКА: ${err.name}`);
+  User.findById(req.params.userId)
+    .then((user) => {
+      if (!user) {
+        return res.status(ERROR_404).send({
+          message: 'Пользователь с указанным id не найден.',
+        });
+      }
+      return res.send({ user });
+    })
+    .catch((err) => {
       if (err.name === 'CastError') {
-        res.status(ERROR_404).send({
-          message: 'Пользователь по указанному _id не найден.'
+        return res.status(ERROR_400).send({
+          message: 'Передан невалидный id пользователя.',
         });
-        return;
       }
-      if (err.name === 'InternalServerError') {
-        res.status(ERROR_500).send({
-          message: 'На сервере произошла ошибка.'
-        });
-        return;
-      }
+      return res.status(ERROR_500).send({
+        message: 'На сервере произошла ошибка.',
+      });
     });
-}
+};
 
 module.exports.createUser = (req, res) => {
   const { name, about, avatar } = req.body;
-  console.log(req.body);
   User.create({ name, about, avatar })
-    .then(user => res.send({ user }))
-    .catch(err => {
-      console.log(`ПРОИЗОШЛА ОШИБКА: ${err.name}`);
+    .then((user) => res.send({ user }))
+    .catch((err) => {
       if (err.name === 'ValidationError') {
-        res.status(ERRROR_400).send({
-          message: 'Переданы некорректные данные при создании пользователя.'
+        return res.status(ERROR_400).send({
+          message: 'Переданы некорректные данные при создании пользователя.',
         });
-        return;
       }
-      if (err.name === 'InternalServerError') {
-        res.status(ERROR_500).send({
-          message: 'На сервере произошла ошибка.'
-        });
-        return;
-      }
+      return res.status(ERROR_500).send({
+        message: 'На сервере произошла ошибка.',
+      });
     });
-}
+};
 
 module.exports.updateUserProfile = (req, res) => {
   const { name, about } = req.body;
   User.findByIdAndUpdate(
     req.user._id,
-    { name , about },
-    { new: true },
+    { name, about },
+    { new: true, runValidators: true },
   )
-    .then(user => res.send({ user }))
-    .catch(err => {
-      console.log(`ПРОИЗОШЛА ОШИБКА: ${err.name}`);
-      if (err.name === 'ValidationError') {
-        res.status(ERRROR_400).send({
-          message: 'Переданы некорректные данные при обновлении профиля.'
+    .then((user) => {
+      if (!user) {
+        return res.status(ERROR_404).send({
+          message: 'Пользователь с указанным id не найден.',
         });
-        return;
+      }
+      return res.send({ user });
+    })
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        return res.status(ERROR_400).send({
+          message: 'Переданы некорректные данные при обновлении профиля.',
+        });
       }
       if (err.name === 'CastError') {
-        res.status(ERROR_404).send({
-          message: 'Пользователь с указанным _id не найден.'
+        return res.status(ERROR_400).send({
+          message: 'Передан невалидный id пользователя.',
         });
-        return;
       }
-      if (err.name === 'InternalServerError') {
-        res.status(ERROR_500).send({
-          message: 'На сервере произошла ошибка.'
-        });
-        return;
-      }
+      return res.status(ERROR_500).send({
+        message: 'На сервере произошла ошибка.',
+      });
     });
-}
+};
 
 module.exports.updateUserAvatar = (req, res) => {
   const { avatar } = req.body;
   User.findByIdAndUpdate(
     req.user._id,
     { avatar },
-    { new: true },
+    { new: true, runValidators: true },
   )
-    .then(user => res.send({ user }))
-    .catch(err => {
-      console.log(`ПРОИЗОШЛА ОШИБКА: ${err.name}`);
-      if (err.name === 'ValidationError') {
-        res.status(ERRROR_400).send({
-          message: 'Переданы некорректные данные при обновлении аватара.'
+    .then((user) => {
+      if (!user) {
+        return res.status(ERROR_404).send({
+          message: 'Пользователь с указанным id не найден.',
         });
-        return;
+      }
+      return res.send({ user });
+    })
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        return res.status(ERROR_400).send({
+          message: 'Переданы некорректные данные при обновлении аватара.',
+        });
       }
       if (err.name === 'CastError') {
-        res.status(ERROR_404).send({
-          message: 'Пользователь с указанным _id не найден.'
+        return res.status(ERROR_400).send({
+          message: 'Передан невалидный id пользователя.',
         });
-        return;
       }
-      if (err.name === 'InternalServerError') {
-        res.status(ERROR_500).send({
-          message: 'На сервере произошла ошибка.'
-        });
-        return;
-      }
+      return res.status(ERROR_500).send({
+        message: 'На сервере произошла ошибка.',
+      });
     });
-}
+};
