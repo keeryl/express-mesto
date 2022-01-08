@@ -10,7 +10,7 @@ module.exports.getCards = (req, res) => {
       console.log(`ПРОИЗОШЛА ОШИБКА: ${err.name}`);
       if (err.name === 'InternalServerError') {
         res.status(ERROR_500).send({
-          message: err.name
+          message: 'На сервере произошла ошибка.'
         });
         return;
       }
@@ -32,7 +32,7 @@ module.exports.createCard = (req, res) => {
       }
       if (err.name === 'InternalServerError') {
         res.status(ERROR_500).send({
-          message: err.name
+          message: 'На сервере произошла ошибка.'
         });
         return;
       }
@@ -77,7 +77,7 @@ module.exports.addLike = (req, res) => {
       }
       if (err.name === 'InternalServerError') {
         res.status(ERROR_500).send({
-          message: err.name
+          message: 'На сервере произошла ошибка.'
         });
         return;
       }
@@ -107,7 +107,7 @@ module.exports.removeLike = (req, res) => {
       }
       if (err.name === 'InternalServerError') {
         res.status(ERROR_500).send({
-          message: err.name
+          message: 'На сервере произошла ошибка.'
         });
         return;
       }

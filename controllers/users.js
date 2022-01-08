@@ -11,7 +11,7 @@ module.exports.getUsers = (req, res) => {
       console.log(`ПРОИЗОШЛА ОШИБКА: ${err.name}`);
       if (err.name === 'InternalServerError') {
         res.status(ERROR_500).send({
-          message: err.name
+          message: 'На сервере произошла ошибка.'
         });
         return;
       }
@@ -31,7 +31,7 @@ module.exports.getUserById = (req, res) => {
       }
       if (err.name === 'InternalServerError') {
         res.status(ERROR_500).send({
-          message: err.name
+          message: 'На сервере произошла ошибка.'
         });
         return;
       }
@@ -53,7 +53,7 @@ module.exports.createUser = (req, res) => {
       }
       if (err.name === 'InternalServerError') {
         res.status(ERROR_500).send({
-          message: err.name
+          message: 'На сервере произошла ошибка.'
         });
         return;
       }
@@ -84,7 +84,7 @@ module.exports.updateUserProfile = (req, res) => {
       }
       if (err.name === 'InternalServerError') {
         res.status(ERROR_500).send({
-          message: err.name
+          message: 'На сервере произошла ошибка.'
         });
         return;
       }
@@ -115,7 +115,7 @@ module.exports.updateUserAvatar = (req, res) => {
       }
       if (err.name === 'InternalServerError') {
         res.status(ERROR_500).send({
-          message: err.name
+          message: 'На сервере произошла ошибка.'
         });
         return;
       }
