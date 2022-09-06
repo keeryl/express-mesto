@@ -1,14 +1,26 @@
-# Проект Mesto фронтенд + бэкенд
+# Express-mesto
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
 
-## Директории
+## Description
 
-`/routes` — папка с файлами роутера  
-`/controllers` — папка с файлами контроллеров пользователя и карточки   
-`/models` — папка с файлами описания схем пользователя и карточки  
+This is API for project Mesto build on Node.js, Express.js, MongoDB and Mongoose.js.
+
+## Features
+
+– Update user info
+
+– Create and delete card
+
+– Add and remove like
+
+– Validation middleware
+
+– Error logging
+ 
   
-Остальные директории вспомогательные, создаются при необходимости разработчиком
+## Run Locally
 
-## Запуск проекта
-
-`npm run start` — запускает сервер   
-`npm run dev` — запускает сервер с hot-reload
+`npm run start` — run server  
+`npm run dev` — run server with hot-reload
