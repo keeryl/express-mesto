@@ -19,11 +19,32 @@ This is API for project Mesto build on Node.js, Express.js, MongoDB and Mongoose
 
 – Error logging
  
-  
-## Run Locally
 
-`npm run start` — run server  
-`npm run dev` — run server with hot-reload
+## Running Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/keeryl/https://github.com/keeryl/express-mesto.git
+```
+
+Go to the project directory
+
+```bash
+  cd express-mesto
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Run server with
+```bash
+  npm run dev
+```
+
 
 ## Project Dependencies
 
