@@ -24,3 +24,19 @@ This is API for project Mesto build on Node.js, Express.js, MongoDB and Mongoose
 
 `npm run start` — run server  
 `npm run dev` — run server with hot-reload
+
+## Project Dependencies
+
+– "body-parser": "^1.19.1"
+
+– "express": "^4.17.2"
+
+– "mongoose": "^6.1.4"
+
+– "eslint": "^8.6.0"
+
+– "eslint-config-airbnb-base": "^15.0.0"
+
+– "eslint-plugin-import": "^2.25.4"
+
+– "nodemon": "^2.0.15"
