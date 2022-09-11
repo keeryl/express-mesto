@@ -5,7 +5,7 @@
 
 ## Description
 
-This is API for project Mesto build on Node.js, Express.js, MongoDB and Mongoose.js.
+This is REST API for project Mesto-react (https://github.com/keeryl/mesto-react) build on Node.js, Express.js, MongoDB and Mongoose.js.
 
 ## Features
 
